@@ -24,13 +24,15 @@ class Controller(object):
 
     # PLAYER methods -----------------------------------------------------------
     def get_player(self, surname, name):
-        return self.model.get_player(surname.upper(), name.lower())
+        return self.model.get_player(surname, name)
 
     def update_player(self, name, surname, value, health, role):
-        return self.model.update_player(name, surname, value, health, role)
+        msg = self.model.update_player(name, surname, value, health, role)
+        self.view.show_message(msg)
 
     def new_player(self, surname, name, value, health, role):
-        return self.model.new_player(surname, name, value, health, role)
+        result = self.model.new_player(surname, name, value, health, role)
+        self.view.show_message(result)
  
     def all_players(self):
         return ['%s %s %s %s <%s>' % (player.surname, player.name.capitalize(),
@@ -40,8 +42,7 @@ class Controller(object):
  
     def delete_player(self, surname, name):
         msg = self.model.delete_player(surname, name)
-        print msg  # debug
-        return msg
+        self.view.show_message(msg)
 
     def get_gap(self):
         return self.model.diff

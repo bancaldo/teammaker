@@ -48,7 +48,6 @@ class ViewPlayer(wx.Frame):
 
     # noinspection PyUnusedLocal
     def on_cb_players(self, event):
-        role = self.panel.roles.GetStringSelection()
         string = self.panel.cb_players.GetStringSelection()
         surname = string.split(' ')[0]
         name = string.split(' ')[1]
@@ -70,8 +69,7 @@ class ViewPlayer(wx.Frame):
         role = self.panel.roles.GetStringSelection()
 
         self.controller.new_player(surname, name, value, health, role)
-        self.parent.show_message('New Player %s %s saved!'
-                                 % (surname.upper(), name.lower()))
+
         self.clear_fields()
         self.parent.refresh_players()
 
@@ -94,8 +92,6 @@ class ViewPlayer(wx.Frame):
             self.parent.show_message('Please select role!')
         else:
             self.controller.update_player(surname, name, value, health, role)
-            self.parent.show_message('Player %s %s updated!'
-                                     % (surname.upper(), name.lower()))
             self.panel.cb_players.Clear()
             players = self.controller.all_players()
             self.panel.cb_players.AppendItems(players)

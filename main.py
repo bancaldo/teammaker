@@ -6,10 +6,12 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
 import sys
 # add the project path into the sys.path
-sys.path.append('/tmp/Fantacalcio/teammaker')
+sys.path.append(os.getcwd())
+# sys.path.append('/tmp/progetti/teammaker')
+# sys.path.append('/tmp/progetti/teammaker/venv/Lib/site-packages')
 # add the virtualenv site-packages path to the sys.path
-sys.path.append('/tmp/Fantacalcio/teammaker/venv/Lib/site-packages')
-
+venv_path = '\\'.join([os.getcwd(), 'venv\\Lib\\site-packages'])
+sys.path.append(venv_path)
 
 # noinspection PyUnresolvedReferences
 from django.core.wsgi import get_wsgi_application

@@ -36,16 +36,18 @@ class Model(object):
 
     @staticmethod
     def new_player(surname, name, value, health, role):
-        player = Player.objects.filter(name=name, surname=surname).first()
+        player = Player.objects.filter(name=name.lower(),
+                                       surname=surname.upper()).first()
         if not player:
             Player.objects.create(name=name.lower(), surname=surname.upper(),
                                   value=int(value), health=int(health),
                                   role=role.lower())
-            print '[INFO] Player <%s %s> CREATED!' % (name.lower(), 
-                                                      surname.upper())
+            msg = 'INFO: Player <%s %s> CREATED!' % (name.lower(),
+                                                     surname.upper())
         else:
-            return '[WARNING] Player <%s %s> already exists' % (name.lower(),
-                                                                surname.upper())
+            msg = 'WARNING: Player <%s %s> already exists' % (name.lower(),
+                                                              surname.upper())
+        return msg
 
     @staticmethod
     def get_player(surname, name):
@@ -73,12 +75,12 @@ class Model(object):
         player.health = int(health)
         player.role = role.lower()
         player.save()
-        return '[INFO] Player <%s %s> UPDATED!' % (player.name, player.surname)
+        return 'INFO: Player <%s %s> UPDATED!' % (player.name, player.surname)
 
     def delete_player(self, surname, name):
         player = self.get_player(surname, name)
         player.delete()
-        return '[INFO] Player <%s %s> DELETED!' % (surname, name)
+        return 'INFO: Player <%s %s> DELETED!' % (surname, name)
 
     @staticmethod
     def get_players_ordered_by_filter(filter_name):
